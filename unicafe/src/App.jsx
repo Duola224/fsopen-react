@@ -5,6 +5,16 @@ const Display = ({ textToDisplay, value }) => <p><span>{textToDisplay}</span> <s
 
 const Statistics = ({ good, neutral, bad }) => {
   const all = good + neutral + bad
+  if (!(good + bad + neutral)) {
+    return (
+      <>
+        <h1>statistics</h1>
+        <p>No feedback given</p>
+      </>
+
+    )
+  }
+
   return (
     <>
       <h1>statistics</h1>
@@ -36,17 +46,7 @@ const App = () => {
     const nbNeutral = neutral + 1;
     setNeutral(nbNeutral);
   }
-
-  if (!(good + bad + neutral)) {
-    return (
-      <div>
-        <h1>give feedback, please!</h1>
-        <Button handleClickBtn={goodFeedback} text="Good" />
-        <Button handleClickBtn={neutralFeedback} text="Neutral" />
-        <Button handleClickBtn={badFeedback} text="Bad" />
-      </div>
-    )
-  }
+  
   return (
     <div>
       <h1>give feedback, please!</h1>
