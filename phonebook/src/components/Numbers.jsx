@@ -1,4 +1,4 @@
-import Person from '../components/Person'
+import Person from './Person'
 
 const Numbers = ({ search, persons }) =>
   <>{!search ?
