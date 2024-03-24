@@ -7,16 +7,14 @@ const App = (props) => {
   const [newNote, setNewNote] = useState('a new note...')
   const [showAll, setShowAll] = useState(true)
 
-  useEffect( () => {
+  useEffect(() => {
     console.log('effect');
     axios
     .get('http://localhost:3002/notes')
     .then(resp => {
-      console.log('promise fulfilled')
       setNotes(resp.data)
     })
   }, [])
-  console.log('render', notes.length, 'notes')
 
   const addNote = (event) => {
     event.preventDefault()
