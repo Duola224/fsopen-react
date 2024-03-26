@@ -1,34 +1,54 @@
 {
-    "notes": [
-        {
-            "id": 1,
-            "content": "HTML is easy",
-            "important": true
-        },
-        {
-            "id": 2,
-            "content": "Browser can execute only JavaScript",
-            "important": false
-        },
-        {
-            "id": 3,
-            "content": "GET and POST are the most important methods of HTTP protocol",
-            "important": true
-        },
-        {
-            "id": 4,
-            "content": "The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request payload.",
-            "important": false
-        },
-        {
-            "id": 5,
-            "content": "The HTTP PATCH request method applies partial modifications to a resource.",
-            "important": true
-        },
-        {
-            "id": 6,
-            "content": "The HTTP OPTIONS method requests permitted communication options for a given URL or server.",
-            "important": false
-        }
-    ]
+  "notes": [
+    {
+      "id": "1",
+      "content": "HTML is easy",
+      "important": false
+    },
+    {
+      "id": "2",
+      "content": "Browser can execute only JavaScript",
+      "important": false
+    },
+    {
+      "id": "3",
+      "content": "GET and POST are the most important methods of HTTP protocol",
+      "important": false
+    },
+    {
+      "id": "4",
+      "content": "The HTTP PUT request method creates a new resource or replaces a representation of the target resource with the request payload.",
+      "important": false
+    },
+    {
+      "id": "5",
+      "content": "The HTTP PATCH request method applies partial modifications to a resource.",
+      "important": false
+    },
+    {
+      "id": "6",
+      "content": "The HTTP OPTIONS method requests permitted communication options for a given URL or server.",
+      "important": true
+    },
+    {
+      "id": "aeff",
+      "content": "React UI framework",
+      "important": false
+    },
+    {
+      "id": "57fa",
+      "content": "Vue FrontEnd framework",
+      "important": false
+    },
+    {
+      "id": "8b2b",
+      "content": "Angular is FrontEnd framework too",
+      "important": false
+    },
+    {
+      "id": "0a80",
+      "content": "Express is for Backend",
+      "important": false
+    }
+  ]
 }
