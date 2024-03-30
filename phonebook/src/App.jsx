@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
 import Numbers from './components/Numbers'
+import personService from './services/person'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -20,11 +20,33 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
+  const deleteNumber = (person) => {
+    if (window.confirm(`Do you want to delete ${person.name}`)) {
+      personService.remove(person.id)
+        .then(resp => setPersons(
+          persons.filter(pers => pers.id !== resp.id)
+        ))
+    } else {
+      console.log("Deletion aborted!");
+    }
+  }
+
   const addName = (event) => {
     event.preventDefault()
-    const found = persons.find((person) => person.name.toLocaleLowerCase() == newName.toLocaleLowerCase())
-    !found ?
-      setPersons(persons.concat({ name: newName, number: newNumber, id: persons.length + 1 })) : alert(`${newName} already exist!`)
+    const found = persons.find((person) => person.name.toLocaleLowerCase() === newName.toLocaleLowerCase())
+    if (!found) {
+      personService.create({ name: newName, number: newNumber })
+        .then(newPers => setPersons(persons.concat(newPers)))
+    } else if (found.number !== newNumber) {
+      if (window.confirm(`Do you want to update ${newName}'s number ?`)) {
+        personService.update(found.id, { name: newName, number: newNumber })
+          .then(persUpdated => setPersons(
+            persons.map(pers => pers.id !== persUpdated.id ? pers : persUpdated)
+          ))
+      }
+    } else {
+      alert(`${newName} already exist with the same number !`)
+    }
     setNewName('')
     setNewNumber('')
   }
@@ -34,11 +56,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    axios
-    .get("http://localhost:3001/persons")
-    .then(resp => {
-      setPersons(resp.data)
-    })
+    personService.getAll()
+      .then(data => setPersons(data))
   }, [])
 
   return (
@@ -47,7 +66,7 @@ const App = () => {
       <Filter search={search} handleSearch={handleSearch} />
       <PersonForm submitFn={addName} name={newName} number={newNumber} handleName={handleNameChange} handleNumber={handleNumberChange} />
       <h2>Numbers</h2>
-      <Numbers search={search} persons={persons} />
+      <Numbers search={search} persons={persons} deleteNumber={deleteNumber} />
     </div>
   )
 }
