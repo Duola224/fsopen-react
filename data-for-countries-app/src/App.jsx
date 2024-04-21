@@ -19,8 +19,7 @@ const App = () => {
         .get(`https://studies.cs.helsinki.fi/restcountries/api/all/`)
         .then(resp => {
           const countries = resp.data
-          const matchCountries = countries.filter(item => item.name.official.toLowerCase().includes(search.toLowerCase()))
-
+          const matchCountries = countries.filter(item => item.name.official.toLowerCase().includes(search.toLowerCase()))          
           if (matchCountries.length === 1) {
             getCountryWeather(matchCountries[0])
             setcountryData(matchCountries)
@@ -38,6 +37,7 @@ const App = () => {
   const onSearch = (event) => {
     event.preventDefault()
     setcountry(value)
+    setValue('')
   }
 
   const getCountryWeather = (country) => {
@@ -64,29 +64,27 @@ const App = () => {
     setcountryData([country])
   }
 
-  if (countryData.length === 0) {
+  if (countryData.length === 0 && search) {
     return (
       <>
         <form onSubmit={onSearch}>
-          country: <input value={value} onChange={handleChange} required />
-          <button type="submit">search</button>
+          country: <input placeholder='Enter a word' value={value} onChange={handleChange} required />
         </form>
+        <p>No countries match your search, please try other words!</p>
       </>
     )
   }
   else if (countryData.length === 1) {
     return (<>
       <form onSubmit={onSearch}>
-        country: <input value={value} onChange={handleChange} required />
-        <button type="submit">search</button>
+        country: <input placeholder='Enter a word' value={value} onChange={handleChange} required />
       </form>
       <Country country={countryData[0]} weather={weather} />
     </>)
   } else if (countryData.length <= 10) {
     return (<>
       <form onSubmit={onSearch}>
-        country: <input value={value} onChange={handleChange} required />
-        <button type="submit">search</button>
+        country: <input placeholder='Enter a word' value={value} onChange={handleChange} required />
       </form>
       <>
         <Countries match={countryData} searchCountryInfo={getCountryInfo} />
@@ -97,7 +95,6 @@ const App = () => {
       <div>
         <form onSubmit={onSearch}>
           country: <input value={value} onChange={handleChange} required />
-          <button type="submit">search</button>
         </form>
         <p>Too many results to display, specify another filter !</p>
       </div>
